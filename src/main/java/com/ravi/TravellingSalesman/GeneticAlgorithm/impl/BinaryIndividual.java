@@ -24,15 +24,29 @@ public class BinaryIndividual implements Individual {
         this.geneSize = geneSize;
         this.chromToPhenotype = chromToPhenotype;
         this.chromosome.append(chromosome);
+
+        Iterator<String> keys = chromToPhenotype.keySet().iterator();
+        while(keys.hasNext()){
+            String key = keys.next();
+            this.phenoToChron.put(chromToPhenotype.get(key), key);
+        }
     }
 
-    public BinaryIndividual(List<String> phenotype,Map<String, String> phenoToChron) {
+    public BinaryIndividual(List<String> phenotype,Map<String, String> phenoToChron, int geneSize) {
         this.phenotype = phenotype;
         this.phenoToChron = phenoToChron;
+        this.geneSize = geneSize;
+
+        Iterator<String> keys = phenoToChron.keySet().iterator();
+        while(keys.hasNext()){
+            String key = keys.next();
+            this.chromToPhenotype.put(phenoToChron.get(key), key);
+        }
     }
 
     public BinaryIndividual(List<String> phenotype, GoogleMapsAPI api) {
         this.phenotype = phenotype;
+        this.geneSize = phenotype.get(0).length();
         this.api= api;
     }
 
@@ -59,6 +73,16 @@ public class BinaryIndividual implements Individual {
         }
     }
 
+    @Override
+    public Map<String, String> chronToPheno() {
+        return this.chromToPhenotype;
+    }
+
+    @Override
+    public Map<String, String> phenoToChron() {
+        return this.phenoToChron;
+    }
+
     public Object getPhenotype() {
         if(phenotype.isEmpty()){
             int i=1;
@@ -74,6 +98,11 @@ public class BinaryIndividual implements Individual {
             }
         }
         return phenotype;
+    }
+
+    @Override
+    public int getGeneSize() {
+        return geneSize;
     }
 
     public double fitness() {

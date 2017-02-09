@@ -15,6 +15,11 @@ public class Population {
     private List<Individual> population = new ArrayList<Individual>();
     private int size = 10;
     private int geneSize = 4;
+    private boolean mutate = true;
+
+    public void setMutate(boolean mutate) {
+        this.mutate = mutate;
+    }
 
     public Population(Map<String, String> chroToPheno, Map<String, String> phenoToChron, BinaryGA ga, int geneSize) {
         this.chroToPheno = chroToPheno;
@@ -28,6 +33,7 @@ public class Population {
         this.phenoToChron = phenoToChron;
         this.ga = ga;
         this.population = population;
+        this.size = population.size();
         this.geneSize = geneSize;
     }
 
@@ -36,7 +42,7 @@ public class Population {
         while(true) {
             int first = randomWithRange(0, size-1);
             int second = randomWithRange(0, size-1);
-            String offSpring = ga.crossover(population.get(first).getGenotype(), population.get(second).getGenotype());
+            String offSpring = ga.crossover(population.get(first), population.get(second));
             //System.out.println(offSpring);
 
             child = new BinaryIndividual(offSpring, geneSize, chroToPheno);
@@ -53,7 +59,7 @@ public class Population {
         Individual child = null;
         while(true){
             int first = randomWithRange(0, size-1);
-            String offSpring = ga.mutate(population.get(first).getGenotype());
+            String offSpring = ga.mutate(population.get(first));
             //System.out.println(offSpring);
 
             child = new BinaryIndividual(offSpring, geneSize, chroToPheno);
@@ -77,7 +83,7 @@ public class Population {
             pheno = new ArrayList<String>();
             pheno.addAll(phenotype);
 
-            individual = new BinaryIndividual(pheno, phenoToChron);
+            individual = new BinaryIndividual(pheno, phenoToChron, seed.getGeneSize());
 
             initPopulation.add(individual);
         }
@@ -131,7 +137,7 @@ public class Population {
 
             if(random < 0.5){
                 nextGenerationIndividuals.add(crossOver());
-            }else if(random < 0.75){
+            }else if(random < 0.75 && mutate){
                 nextGenerationIndividuals.add(mutate());
             }else{
                 int index = 0;

@@ -56,12 +56,12 @@ public class App
 
         List<String> waypoints = new ArrayList<String>();
         waypoints.addAll(origWaypoints);
-        Individual individual = new BinaryIndividual(waypoints, phenoToChron);
+        Individual individual = new BinaryIndividual(waypoints, phenoToChron, 3);
         List<Individual> initPopulation = Population.initialPopulation(individual, phenoToChron, 10);
 
         Population population = new Population(chroToPheno, phenoToChron, ga, initPopulation, 4);
         population.sortPopulation();
-        individual = new BinaryIndividual(origWaypoints, phenoToChron);
+        individual = new BinaryIndividual(origWaypoints, phenoToChron,3);
         population.replaceWorst(individual);
 
         for(int i=0; i<1000; i++){
@@ -98,7 +98,7 @@ public class App
         waypoints.add("53.801277,-1.548567");
         waypoints.add("54.993168,-1.603431");
         waypoints.add("55.865101,-4.433177");
-        individual = new BinaryIndividual(waypoints, phenoToChron);
+        individual = new BinaryIndividual(waypoints, phenoToChron,3);
 
         System.out.println(individual.fitness());
 
