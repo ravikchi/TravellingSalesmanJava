@@ -15,7 +15,7 @@ public class BinaryIndividual implements Individual {
     private Map<String, String> chromToPhenotype= new HashMap<String, String>();
     private List<String> phenotype = new ArrayList<String>();
     Map<String, String> phenoToChron = new HashMap<String, String>();
-    private int geneSize = 3;
+    private int geneSize = 4;
     GoogleMapsAPI api;
     private double fitnessVal = 0.0;
 
@@ -65,7 +65,7 @@ public class BinaryIndividual implements Individual {
             StringBuilder gene = new StringBuilder();
             for(char c: chromosome.toString().toCharArray()){
                 gene.append(c);
-                if(i%3 == 0){
+                if(i%geneSize == 0){
                     String phenoEle = chromToPhenotype.get(gene.toString());
                     phenotype.add(phenoEle);
                     gene.setLength(0);

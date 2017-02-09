@@ -22,18 +22,14 @@ public class App
 {
     public static void main( String[] args )
     {
-        BinaryGA ga = new SinglePointCrossOverGA();
-        String parent = "0101001110101010010001";
-
-        System.out.println(parent);
-        System.out.println(ga.mutate(parent));
+        BinaryGA ga = new SinglePointCrossOverGA(0.15);
 
         List<String> origWaypoints = new ArrayList<String>();
         origWaypoints.add("51.508530,-0.076132");
         origWaypoints.add("52.489471,-1.898575");
-        origWaypoints.add("53.383055,-1.464795");
         origWaypoints.add("53.397495,-2.974092");
         origWaypoints.add("53.483959,-2.244644");
+        origWaypoints.add("53.383055,-1.464795");
         origWaypoints.add("53.801277,-1.548567");
         origWaypoints.add("54.993168,-1.603431");
         origWaypoints.add("55.865101,-4.433177");
@@ -63,7 +59,7 @@ public class App
         Individual individual = new BinaryIndividual(waypoints, phenoToChron);
         List<Individual> initPopulation = Population.initialPopulation(individual, phenoToChron, 10);
 
-        Population population = new Population(chroToPheno, phenoToChron, ga, initPopulation);
+        Population population = new Population(chroToPheno, phenoToChron, ga, initPopulation, 4);
         population.sortPopulation();
         individual = new BinaryIndividual(origWaypoints, phenoToChron);
         population.replaceWorst(individual);
@@ -84,13 +80,14 @@ public class App
         for(String str : (List<String>) bestIn.getPhenotype()){
             System.out.println(str);
         }
+        System.out.println(bestIn.fitness());
 
 
-        /*GeoApiContext context = new GeoApiContext().setApiKey(Constants.googleDirectionsAPIKey);
+        GeoApiContext context = new GeoApiContext().setApiKey(Constants.googleDirectionsAPIKey);
         GoogleMapsAPI api = new GoogleMapsAPI(context);
 
         DirectionsResult result = api.directionsFromWaypoints(api.getWaypoints((List<String>) bestIn.getPhenotype()));
-        System.out.println(api.getDistance(result));*/
+        System.out.println(api.getDistance(result));
 
         waypoints = new ArrayList<String>();
         waypoints.add("51.508530,-0.076132");

@@ -14,18 +14,21 @@ public class Population {
     private BinaryGA ga;
     private List<Individual> population = new ArrayList<Individual>();
     private int size = 10;
+    private int geneSize = 4;
 
-    public Population(Map<String, String> chroToPheno, Map<String, String> phenoToChron, BinaryGA ga) {
+    public Population(Map<String, String> chroToPheno, Map<String, String> phenoToChron, BinaryGA ga, int geneSize) {
         this.chroToPheno = chroToPheno;
         this.phenoToChron = phenoToChron;
         this.ga = ga;
+        this.geneSize = geneSize;
     }
 
-    public Population(Map<String, String> chroToPheno, Map<String, String> phenoToChron, BinaryGA ga, List<Individual> population) {
+    public Population(Map<String, String> chroToPheno, Map<String, String> phenoToChron, BinaryGA ga, List<Individual> population, int geneSize) {
         this.chroToPheno = chroToPheno;
         this.phenoToChron = phenoToChron;
         this.ga = ga;
         this.population = population;
+        this.geneSize = geneSize;
     }
 
     public Individual crossOver(){
@@ -36,7 +39,7 @@ public class Population {
             String offSpring = ga.crossover(population.get(first).getGenotype(), population.get(second).getGenotype());
             //System.out.println(offSpring);
 
-            child = new BinaryIndividual(offSpring, 3, chroToPheno);
+            child = new BinaryIndividual(offSpring, geneSize, chroToPheno);
             if(child.isAlive()) {
                 //System.out.println(child.fitness());
                 break;
@@ -53,7 +56,7 @@ public class Population {
             String offSpring = ga.mutate(population.get(first).getGenotype());
             //System.out.println(offSpring);
 
-            child = new BinaryIndividual(offSpring, 3, chroToPheno);
+            child = new BinaryIndividual(offSpring, geneSize, chroToPheno);
             if(child.isAlive()) {
                 //System.out.println(child.fitness());
                 break;
@@ -143,7 +146,7 @@ public class Population {
             }
         }
 
-        Population nextGen = new Population(chroToPheno, phenoToChron, ga, nextGenerationIndividuals);
+        Population nextGen = new Population(chroToPheno, phenoToChron, ga, nextGenerationIndividuals, geneSize);
         nextGen.sortPopulation();
         nextGen.replaceWorst(population.get(0));
 

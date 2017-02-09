@@ -9,4 +9,3 @@ The example uses the following cities <br/>
 101 - Sheffield<br/>
 110 - Liverpool<br/>
 111 - Leeds
-
