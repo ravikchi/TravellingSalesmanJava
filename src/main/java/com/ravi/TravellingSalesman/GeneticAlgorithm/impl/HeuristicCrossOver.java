@@ -109,7 +109,8 @@ public class HeuristicCrossOver implements BinaryGA {
         List<String> chromosome = getChromosome(parent.getGenotype(), parent.getGeneSize());
 
         String genotype = parent.getGenotype();
-        if (Math.random() < mutationRate) {
+        /*for(int i=0; i<chromosome.size();i++) {
+            if (Math.random() < mutationRate) {*/
                 int first = randomWithRange(0, chromosome.size() - 1);
                 int second = randomWithRange(0, chromosome.size() - 1);
 
@@ -120,7 +121,9 @@ public class HeuristicCrossOver implements BinaryGA {
                 chromosome.add(first, gene2);
                 chromosome.remove(second);
                 chromosome.add(second, gene1);
+/*
             }
+        }*/
 
         StringBuilder result = new StringBuilder();
         for (String ele : chromosome) {

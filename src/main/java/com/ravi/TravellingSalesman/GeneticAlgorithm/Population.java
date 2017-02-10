@@ -179,9 +179,9 @@ public class Population {
             }
             double random = Math.random();
 
-            if(random < 0.5){
+            if(random < 0.7){
                 nextGenerationIndividuals.add(crossOver());
-            }else if(random < 0.75 && mutate){
+            }else if(random < 0.95 && mutate){
                 nextGenerationIndividuals.add(mutate());
             }else{
                 int index = 0;
@@ -192,9 +192,49 @@ public class Population {
 
         Population nextGen = new Population(chroToPheno, phenoToChron, ga, nextGenerationIndividuals, geneSize);
         nextGen.sortPopulation();
-        nextGen.replaceWorst(population.get(0));
+        nextGen.getBestOf2Generations(population);
 
         return nextGen;
+    }
+
+    public void getBestOf2Generations(List<Individual> gen1){
+       population.addAll(gen1);
+       sortPopulation();
+        List<Individual> newPopulation = population.subList(0, size);
+        while(true){
+            if(newPopulation.size() == size){
+                break;
+            }else if(newPopulation.size() > size){
+                newPopulation.remove(newPopulation.size()-1);
+            }else {
+                int randon = randomWithRange(0, size - 1);
+                newPopulation.add(population.get(randon));
+            }
+        }
+
+        population = newPopulation;
+    }
+
+    public void getBestOf2Generationsv2(List<Individual> gen1){
+        List<Individual> oldChild = new ArrayList<>();
+        oldChild.addAll(population);
+        population.addAll(gen1);
+        sortPopulation();
+        int newSize = new Double(size*0.1).intValue();
+        List<Individual> newPopulation = population.subList(0, newSize);
+        newPopulation.addAll(oldChild.subList(0, size-newSize-1));
+        while(true){
+            if(newPopulation.size() == size){
+                break;
+            }else if(newPopulation.size() > size){
+                newPopulation.remove(newPopulation.size()-1);
+            }
+
+            int randon = randomWithRange(0, size-1);
+            newPopulation.add(oldChild.get(randon));
+        }
+
+        population = newPopulation;
     }
 
     public void replaceWorst(Individual individual){

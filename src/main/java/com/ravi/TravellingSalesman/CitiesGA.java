@@ -73,7 +73,7 @@ public class CitiesGA {
         Map<String, String> chroToPheno = salesman.getChromoToPhenoMap(wayPoints, geneSize);
         Map<String, String> phenoToChron = salesman.getPhenoToChromo(wayPoints, geneSize);
 
-        BinaryGA ga = new HeuristicCrossOver(0.15);
+        BinaryGA ga = new HeuristicCrossOver(0.05);
 
         salesman.runGA(wayPoints, chroToPheno, phenoToChron, ga,geneSize);
 
@@ -84,7 +84,7 @@ public class CitiesGA {
         waypoints.addAll(origWaypoints);
 
         Individual individual = new BinaryIndividual(waypoints, phenoToChron, geneSize);
-        List<Individual> initPopulation = Population.initialPopulation(individual, phenoToChron, 20);
+        List<Individual> initPopulation = Population.initialPopulation(individual, phenoToChron, 50);
 
         Population population = new Population(chroToPheno, phenoToChron, ga, initPopulation, geneSize);
         population.sortPopulation();
