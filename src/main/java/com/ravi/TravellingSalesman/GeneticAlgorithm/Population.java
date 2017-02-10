@@ -16,6 +16,7 @@ public class Population {
     private int size = 10;
     private int geneSize = 4;
     private boolean mutate = true;
+    private List<Double> rouletteWheel = new ArrayList<Double>();
 
     public void setMutate(boolean mutate) {
         this.mutate = mutate;
@@ -40,9 +41,8 @@ public class Population {
     public Individual crossOver(){
         Individual child = null;
         while(true) {
-            int first = randomWithRange(0, size-1);
-            int second = randomWithRange(0, size-1);
-            String offSpring = ga.crossover(population.get(first), population.get(second));
+            Individual[] individuals = selection();
+            String offSpring = ga.crossover(individuals[0], individuals[1]);
             //System.out.println(offSpring);
 
             child = new BinaryIndividual(offSpring, geneSize, chroToPheno);
@@ -58,8 +58,8 @@ public class Population {
     public Individual mutate(){
         Individual child = null;
         while(true){
-            int first = randomWithRange(0, size-1);
-            String offSpring = ga.mutate(population.get(first));
+            Individual[] individuals = selection();
+            String offSpring = ga.mutate(individuals[0]);
             //System.out.println(offSpring);
 
             child = new BinaryIndividual(offSpring, geneSize, chroToPheno);
@@ -124,6 +124,50 @@ public class Population {
         System.out.println("The Average Fitness of population :"+mean);
     }
 
+    private double totalFitness(){
+        double totalFitness = 0.0;
+        for(Individual individual : population){
+            totalFitness = totalFitness + individual.fitness();
+        }
+        return totalFitness;
+    }
+
+    private int roulettWheelAlgo(){
+        if(rouletteWheel.isEmpty()){
+            double totalFit = totalFitness();
+            double curFitness = 0.0;
+            for(int i=0; i<population.size();i++) {
+                double fitness = population.get(i).fitness()/totalFit;
+                curFitness = curFitness + fitness;
+                rouletteWheel.add(curFitness);
+            }
+        }
+
+        int index = 0;
+
+        double random = Math.random();
+        for(int i=0; i<rouletteWheel.size();i++){
+            if(random < rouletteWheel.get(i)){
+                index = i;
+                break;
+            }
+        }
+
+        return index;
+    }
+
+    public Individual[] selection(){
+
+        int first = roulettWheelAlgo();
+        int second = roulettWheelAlgo();
+
+        Individual[] individuals = new Individual[2];
+        individuals[0] = population.get(first);
+        individuals[1] = population.get(second);
+
+        return individuals;
+    }
+
     public Population getNextGeneration(){
         this.sortPopulation();
 
@@ -141,14 +185,8 @@ public class Population {
                 nextGenerationIndividuals.add(mutate());
             }else{
                 int index = 0;
-                int first = randomWithRange(0, size-1);
-                int second = randomWithRange(0, size-1);
-
-                if(population.get(first).fitness() > population.get(second).fitness()) {
-                    nextGenerationIndividuals.add(population.get(first));
-                }else{
-                    nextGenerationIndividuals.add(population.get(second));
-                }
+                Individual[] individuals = selection();
+                nextGenerationIndividuals.add(individuals[0]);
             }
         }
 
