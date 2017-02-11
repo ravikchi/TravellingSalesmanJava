@@ -38,6 +38,12 @@
       <artifactId>google-maps-services</artifactId>
       <version>0.1.17</version>
     </dependency>
+
+    <dependency>
+      <groupId>com.ravi.GenericGA</groupId>
+      <artifactId>GenericGA</artifactId>
+      <version>0.1</version>
+    </dependency>
     <!-- https://mvnrepository.com/artifact/org.json/json -->
     <dependency>
       <groupId>org.json</groupId>

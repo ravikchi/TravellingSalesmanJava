@@ -1,8 +1,7 @@
-package com.ravi.TravellingSalesman.GeneticAlgorithm.impl.Converters;
+package com.ravi.TravellingSalesman.GeneticAlgorithm.elements;
 
-import com.ravi.TravellingSalesman.GeneticAlgorithm.Converter;
-import com.ravi.TravellingSalesman.GeneticAlgorithm.Individual;
-import com.ravi.TravellingSalesman.GeneticAlgorithm.impl.Individuals.TSPIndividual;
+import com.ravi.GenericGA.GeneticAlgorithm.Converter;
+import com.ravi.GenericGA.GeneticAlgorithm.Individual;
 import com.ravi.TravellingSalesman.Utils.DistanceCalculator;
 
 import java.util.HashMap;

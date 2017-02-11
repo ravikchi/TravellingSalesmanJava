@@ -1,7 +1,7 @@
-package com.ravi.TravellingSalesman.GeneticAlgorithm.impl.Individuals;
+package com.ravi.TravellingSalesman.GeneticAlgorithm.elements;
 
-import com.ravi.TravellingSalesman.GeneticAlgorithm.Converter;
-import com.ravi.TravellingSalesman.GeneticAlgorithm.Individual;
+import com.ravi.GenericGA.GeneticAlgorithm.Converter;
+import com.ravi.GenericGA.GeneticAlgorithm.Individual;
 import com.ravi.TravellingSalesman.Utils.DistanceCalculator;
 
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by ravik on 11/02/2017.
  */
-public class TSPIndividual implements Individual{
+public class TSPIndividual implements Individual {
     private double fitness;
     private StringBuilder chromosome;
     private List<Object> phenoType = new ArrayList<Object>();

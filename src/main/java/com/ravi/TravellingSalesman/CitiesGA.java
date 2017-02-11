@@ -1,12 +1,12 @@
 package com.ravi.TravellingSalesman;
 
-import com.ravi.TravellingSalesman.GeneticAlgorithm.*;
-import com.ravi.TravellingSalesman.GeneticAlgorithm.Exceptions.GAException;
-import com.ravi.TravellingSalesman.GeneticAlgorithm.impl.Converters.HeuristicConverter;
-import com.ravi.TravellingSalesman.GeneticAlgorithm.impl.CrossOver.HeuristicCrossOver;
-import com.ravi.TravellingSalesman.GeneticAlgorithm.impl.MutationOpe.HeuristicMutation;
-import com.ravi.TravellingSalesman.GeneticAlgorithm.impl.NextGenSelectors.ElitistNextGen;
-import com.ravi.TravellingSalesman.GeneticAlgorithm.impl.Selectors.RouletteWheelSelection;
+import com.ravi.GenericGA.GeneticAlgorithm.*;
+import com.ravi.GenericGA.GeneticAlgorithm.Exceptions.GAException;
+import com.ravi.GenericGA.GeneticAlgorithm.impl.MutationOpe.HeuristicMutation;
+import com.ravi.GenericGA.GeneticAlgorithm.impl.NextGenSelectors.ElitistNextGen;
+import com.ravi.GenericGA.GeneticAlgorithm.impl.Selectors.RouletteWheelSelection;
+import com.ravi.TravellingSalesman.GeneticAlgorithm.elements.HeuristicConverter;
+import com.ravi.TravellingSalesman.GeneticAlgorithm.elements.HeuristicCrossOver;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -151,13 +151,8 @@ public class CitiesGA {
         Map<String, String> phenoToChron = new HashMap<String, String>();
         for(int i=0; i<wayPoints.size(); i++){
             int key = Integer.parseInt(Integer.toBinaryString(i));
-            String value = wayPoints.get(i);
 
-            //System.out.println(value + ", " + String.format("%04d", key));
-
-            String format = "%0"+geneSize+"d";
-
-            phenoToChron.put(value,String.format(format, key));
+            phenoToChron.put(wayPoints.get(i),String.format("%0"+geneSize+"d", key));
         }
         return phenoToChron;
     }
@@ -166,12 +161,7 @@ public class CitiesGA {
         Map<String, String> chroToPheno = new HashMap<String, String>();
         for(int i=0; i<wayPoints.size(); i++){
             int key = Integer.parseInt(Integer.toBinaryString(i));
-            String value = wayPoints.get(i);
-
-            //System.out.println(String.format("%04d", key) + ", " + value);
-            String format = "%0"+geneSize+"d";
-
-            chroToPheno.put(String.format(format, key), value);
+            chroToPheno.put(String.format("%0"+geneSize+"d", key), wayPoints.get(i));
         }
 
         return chroToPheno;

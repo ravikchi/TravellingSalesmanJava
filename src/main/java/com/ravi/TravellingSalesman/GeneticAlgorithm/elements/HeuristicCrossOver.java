@@ -1,9 +1,8 @@
-package com.ravi.TravellingSalesman.GeneticAlgorithm.impl.CrossOver;
+package com.ravi.TravellingSalesman.GeneticAlgorithm.elements;
 
-import com.ravi.TravellingSalesman.GeneticAlgorithm.CrossOverOperator;
-import com.ravi.TravellingSalesman.GeneticAlgorithm.Individual;
-import com.ravi.TravellingSalesman.GeneticAlgorithm.impl.Converters.HeuristicConverter;
-import com.ravi.TravellingSalesman.Utils.RandomUtils;
+import com.ravi.GenericGA.GeneticAlgorithm.CrossOverOperator;
+import com.ravi.GenericGA.GeneticAlgorithm.Individual;
+import com.ravi.GenericGA.Utils.RandomUtils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
