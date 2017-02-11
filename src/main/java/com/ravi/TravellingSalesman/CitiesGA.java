@@ -7,6 +7,7 @@ import com.ravi.GenericGA.GeneticAlgorithm.impl.NextGenSelectors.ElitistNextGen;
 import com.ravi.GenericGA.GeneticAlgorithm.impl.Selectors.RouletteWheelSelection;
 import com.ravi.TravellingSalesman.GeneticAlgorithm.elements.HeuristicConverter;
 import com.ravi.TravellingSalesman.GeneticAlgorithm.elements.HeuristicCrossOver;
+import com.ravi.TravellingSalesman.GeneticAlgorithm.elements.HeuristicPopulation;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -52,7 +53,7 @@ public class CitiesGA {
         //NextGenSelector nextGenSelector = new HeuristicNextGenSelector(generationSize);
         NextGenSelector nextGenSelector = new ElitistNextGen();
 
-        Population population = new Population(gaOperators, nextGenSelector);
+        Population population = new HeuristicPopulation(gaOperators, nextGenSelector);
         population.setN(generationSize);
         population.setPopulation(salesman.initialPopulation(individual, generationSize));
 
