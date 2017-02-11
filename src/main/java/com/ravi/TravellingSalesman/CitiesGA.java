@@ -113,7 +113,7 @@ public class CitiesGA {
         this.size = size;
     }
 
-    public List<Individual> initialPopulation(Individual seed, int populationSize){
+    public List<Individual> initialPopulation(Individual seed,int populationSize){
         List<Individual> initPopulation = new ArrayList<Individual>();
         while(initPopulation.size() < populationSize){
             List<Object> phenoType = new ArrayList<Object>();
