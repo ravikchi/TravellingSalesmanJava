@@ -2,6 +2,7 @@ package com.ravi.TravellingSalesman.GeneticAlgorithm.elements;
 
 import com.ravi.GenericGA.GeneticAlgorithm.Converter;
 import com.ravi.GenericGA.GeneticAlgorithm.Individual;
+import com.ravi.GenericGA.GeneticAlgorithm.Objective;
 import com.ravi.TravellingSalesman.Utils.DistanceCalculator;
 
 import java.util.ArrayList;
@@ -49,6 +50,11 @@ public class TSPIndividual implements Individual {
         this.fitness = 1 - totalDistance;
 
         return this.fitness;
+    }
+
+    @Override
+    public double getFitness(Objective objective) {
+        return 0;
     }
 
     public String getChromosome() {
